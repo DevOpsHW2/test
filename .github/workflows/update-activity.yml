@@ -3,17 +3,22 @@
 name: Update GitHub Activity
 
 on:
-  schedule:
-    - cron: "*/30 * * * *" # Runs every 30 minutes
+  #schedule:
+    #- cron: "*/30 * * * *" # Runs every 30 minutes
   workflow_dispatch: # Allows manual triggering
 
 jobs:
   update-activity:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
-      - name: Update GitHub Activity
+      - name: Update activity log
         uses: Lynniu5016/activity-log@test2
         with:
           GITHUB_USERNAME: "Lynniu5016"
-          GITHUB_TOKEN: ${{ secrets.ACTIONSECRET2024 }} # Ensure this matches the secret name in repository settings
+          GITHUB_TOKEN: ${{ secrets.ACTIONSECRET2024 }}
+          TARGET_REPOS: '[DevOpsHW2/test]'
+          EVENT_LIMIT: '100'
